@@ -1,11 +1,20 @@
 import './App.css'
-import DynamicInput from './components/pages/DynamicInput';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './components/pages/Register/Register';
+import Login from './components/pages/Login/Login';
 
 function App() {
   return (
-    <div className="App">
-     <DynamicInput />
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
+    </Router>
+    /* <div className="App">
+  
+      <Register />
+    </div> */
   );
 }
 
