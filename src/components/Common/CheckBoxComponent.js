@@ -1,5 +1,5 @@
 
-const CheckBoxComponent = ({ label, checked, onChange }) => {
+const CheckBoxComponent = ({ label, checked, onChange,error }) => {
     return (
         <div className="input_icon">
         <label>
@@ -10,6 +10,7 @@ const CheckBoxComponent = ({ label, checked, onChange }) => {
           />
           {label}
         </label>
+        {error && <span className="input_error_span">{error}</span>}
         </div>
       );  
 }

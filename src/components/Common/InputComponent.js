@@ -1,5 +1,7 @@
+import React,{useState} from 'react';
 
 const InputComponent = ({ label, type, value, onChange, placeholder, icon, error }) => {
+
     return (
         <div>
             <label>{label}</label>
@@ -9,7 +11,6 @@ const InputComponent = ({ label, type, value, onChange, placeholder, icon, error
                 onChange={onChange}
                 placeholder={placeholder} />
             {error && <span className="input_error_span">{error}</span>}
-
             {/*  <span className="icon_user">{icon}</span> */}
         </div>
     )

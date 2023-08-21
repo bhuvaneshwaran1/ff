@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+/* ul{list-style: none;} */
+
 .App {
   text-align: center;
 }
@@ -27,15 +29,17 @@
 input[type='text'],
 input[type='email'],
 input[type='password'],
+input[type="date"],
 select {
   width: 100%;
   max-width: 220px;
-  padding: 11px;
+  padding: 12px;
   border-radius: 5px;
-  display: inline-block;
+ /*  display: inline-block; */
   border: 1px solid lightblue;
   outline: none;
   margin: 10px;
+  resize: vertical;
 }
 
 label {
@@ -73,6 +77,9 @@ label {
 .container {
   text-align: center;
   padding: 20px;
+  /* border-radius: 5px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  /* width: 800px; */
 }
 
 .password_field {
@@ -81,4 +88,31 @@ label {
 
 .account_reg {
   margin: 9px;
+}
+
+.radio_btncss{
+  display: inline-flex;
+}
+
+
+.confim_pwdbtn{
+  margin-left: -60px;
+}
+
+.col-25 {
+  float: left;
+  /* width: 25%; */
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+ /*  width: 75%; */
+  margin-top: 6px;
+}
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
 }

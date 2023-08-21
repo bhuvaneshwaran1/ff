@@ -1,53 +1,53 @@
 import React, { useState } from 'react';
 import InputComponent from '../../Common/InputComponent';
-import CommonValidation from '../../Validation/CommonValidation';
+import { LoginValidation } from '../../Validation/CommonValidation';
 import Buttons from '../../Common/Buttons';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { loginUser } from '../../../redux/action';
+import {useDispatch} from 'react-redux';
 const Login = () => {
 
-
+    const dispatch = useDispatch();
     const initialValues = { email: '', password: '' }
     const [loginForm, setLoginForm] = useState(initialValues)
     const [formErrors, setFormErrors] = useState({})
+    const[errors,setErrors] = useState('')
     const [isSubmit, setIsSubmit] = useState(false);
 
     const navigate = useNavigate();
     const handleChange = (field, value) => {
-        //const { name, value } = e.target;
+        setFormErrors({...formErrors,[field]:''})
         setLoginForm((prev) => ({ ...prev, [field]: value }))
     }
 
     const handleSubmit = e => {
         e.preventDefault();
-        const ValidationErrors = CommonValidation(loginForm)
-        setFormErrors(ValidationErrors)
+         const ValidationLoginErrors = LoginValidation(loginForm) 
+        setFormErrors(ValidationLoginErrors) 
         setIsSubmit(true);
-        if (Object.keys(ValidationErrors).length === 0) {
-            const registeredUser = JSON.parse(localStorage.getItem('registeredUser'));
-            if (
-                registeredUser &&
-                registeredUser.email === loginForm.email &&
-                registeredUser.password === loginForm.password
-            ) {
-                console.log('Login successful:', loginForm);
-                navigate('/dashboard');
+         if (Object.keys(ValidationLoginErrors).length === 0) {
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || []
+            console.log(registeredUsers,"kkk")
+            const matchedUser = registeredUsers.find(
+              (user) => user.email === loginForm.email && user.password === loginForm.password
+            );
+            if (matchedUser) {
+              dispatch(loginUser(matchedUser));
+               navigate('/dashboard')
             } else {
-                setFormErrors({ login: 'Invalid email or password.' });
+                setErrors('Invalid credentials')
             }
-        }
-        console.log(loginForm, "Loginform")
+           } 
     }
 
     return (
         <div className='container'>
             {Object.keys(formErrors).length === 0 && isSubmit ? (
                 <div>
-                    Login Successfully
-
+                    Invalid credentials
                 </div>
             ) : (
-                <pre>{JSON.stringify(loginForm, undefined, 1)}</pre>
+                <pre>{JSON.stringify(loginForm)}</pre>
             )}
             <form>
                 Login page
@@ -74,7 +74,7 @@ const Login = () => {
                     type="button"
                     label="Login"
                     onClick={handleSubmit} />
-                {formErrors.login && <p className="error">{formErrors.login}</p>}
+{/*                 {formErrors.login && <p className="error">{formErrors.login}</p>} */}
 
                 <p className='account_reg'>
                     Don't have an account? <Link to="/register">Register</Link>

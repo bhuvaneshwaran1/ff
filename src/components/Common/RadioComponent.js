@@ -1,8 +1,9 @@
-const RadioComponent = ({options, radioSelect , onChange}) => {
+const RadioComponent = ({label,options, radioSelect , onChange,error}) => {
     return (
-        <div className="input_icon">
+        <div  >
+             {label}
             {options?.map((option) => (
-                <label key={option.value}>
+                <label className="radio_btncss" key={option.value}>  
                     <input className="radio_text"
                     //name='radioOptions'
                     type="radio"
@@ -10,9 +11,10 @@ const RadioComponent = ({options, radioSelect , onChange}) => {
                     checked={radioSelect === option.value}
                     onChange={()=>onChange(option.value)}
                     />
-                     {option.label}
-                </label>
+                     {option.label}  
+                </label>   
             ))}
+             {error && <span className="input_error_span">{error}</span>}
         </div>
     )
 }
